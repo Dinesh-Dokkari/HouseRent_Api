@@ -1,7 +1,20 @@
+using HappyHouse.Models;
+using HappyHouse.Services;
+using HappyHouse.Services.IServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(MappingConfig));
+
+builder.Services.AddHttpClient<IHouseService, HouseService>();
+builder.Services.AddScoped<IHouseService, HouseService>();
+
+builder.Services.AddHttpClient<IHouseNumberService, HouseNumberService>();
+builder.Services.AddScoped<IHouseNumberService, HouseNumberService>();
+
 
 var app = builder.Build();
 

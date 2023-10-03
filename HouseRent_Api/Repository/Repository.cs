@@ -40,7 +40,7 @@ namespace HouseRent_Api.Repository
         }
 
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null)
-        {
+         {
             IQueryable<T> query = _dbSet;
 
             if (filter != null)

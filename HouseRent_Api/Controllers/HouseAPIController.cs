@@ -123,7 +123,7 @@ namespace HouseRent_Api.Controllers
                 //HouseStore.HouseList.Add(HouseDto);
 
 
-                _response.Result = _mapper.Map<List<HouseDto>>(house);
+                _response.Result = _mapper.Map<HouseDto>(house);
                 _response.StatusCode = HttpStatusCode.Created;
                 return CreatedAtRoute("GetHouse", new { id = house.Id }, _response);
 
@@ -245,8 +245,7 @@ namespace HouseRent_Api.Controllers
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages
-                    = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string>() { ex.ToString() };
             }
             return _response;
 
