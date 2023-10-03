@@ -51,16 +51,16 @@ namespace HappyHouse.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateHouseNumber(int houseid)
+        public async Task<IActionResult> UpdateHouseNumber(int HouseNo)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.GetAsync<APIresponse>(houseid);
+                var responce = await _houseNumberService.GetAsync<APIresponse>(HouseNo);
 
                 if (responce != null && responce.IsSuccess)
                 {
-                    HouseDto model = JsonConvert.DeserializeObject<HouseDto>(Convert.ToString(responce.Result));
-                    return View(_mapper.Map<HouseUpdateDto>(model));
+                    HouseNumberDto model = JsonConvert.DeserializeObject<HouseNumberDto>(Convert.ToString(responce.Result));
+                    return View(_mapper.Map<HouseNumberUpdateDto>(model));
                 }
             }
             return NotFound();
@@ -68,7 +68,7 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateNumber(HouseNumberUpdateDto model)
+        public async Task<IActionResult> UpdateHouseNumber(HouseNumberUpdateDto model)
         {
             if (ModelState.IsValid)
             {
@@ -102,11 +102,11 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletehouseNumber(int id)
+        public async Task<IActionResult> DeletehouseNumber(int HouseNo)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.DeleteAsync<APIresponse>(id);
+                var responce = await _houseNumberService.DeleteAsync<APIresponse>(HouseNo);
 
                 if (responce != null && responce.IsSuccess)
                 {
