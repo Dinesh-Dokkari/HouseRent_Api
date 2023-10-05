@@ -52,7 +52,7 @@ namespace HappyHouse.Services
 
                 HttpResponseMessage apiResponse = null;
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.);
 
                 //if (!string.IsNullOrEmpty(apiRequest.Token))
                 //{
