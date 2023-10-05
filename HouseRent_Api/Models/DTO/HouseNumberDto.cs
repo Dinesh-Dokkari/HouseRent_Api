@@ -11,5 +11,7 @@ namespace HouseRent_Api.Models.DTO
         public int HouseId { get; set; }
 
         public string SpecialDetails { get; set; }
+
+        public HouseDto House { get; set; }
     }
 }

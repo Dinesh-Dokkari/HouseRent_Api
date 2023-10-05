@@ -33,7 +33,7 @@ namespace HouseRent_Api.Controllers
         {
             try 
             {
-                IEnumerable<HouseNumber> HouseNumberList = await _dbHouseNumber.GetAllAsync();
+                IEnumerable<HouseNumber> HouseNumberList = await _dbHouseNumber.GetAllAsync(includeProperties:"House");
 
                 _response.Result = _mapper.Map<List<HouseNumberDto>>(HouseNumberList);
                 _response.StatusCode = HttpStatusCode.OK;

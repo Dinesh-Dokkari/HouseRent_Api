@@ -43,7 +43,8 @@ namespace HappyHouse.Services
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.GET,
-                Url = HouseUrl + "/api/HouseAPI"
+                Url = HouseUrl + "/api/HouseAPI",
+               
 
             });
         }

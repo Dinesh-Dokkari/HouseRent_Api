@@ -18,7 +18,7 @@
 					House Number
 				</th>
 				<th>
-					House Id
+					House Name
 				</th>
 				<th>
 					Special Details
@@ -31,7 +31,7 @@
 			{
 				<tr>
 					<td>@item.HouseNo</td>
-					<td>@item.HouseId</td>
+					<td>@item.House.Name</td>
 					<td>@item.SpecialDetails</td>
 					<td>
 						<a asp-controller="HouseNumber" asp-action="UpdateHouseNumber" asp-route-houseid="@item.HouseNo" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>

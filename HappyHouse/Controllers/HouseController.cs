@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HappyHouse.Models;
 using HappyHouse.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -20,6 +21,7 @@ namespace HappyHouse.Controllers
         {
             List<HouseDto> list = new();
 
+
             var responce = await _houseService.GetAllAsync<APIresponse>();
 
             if (responce != null && responce.IsSuccess)
@@ -29,12 +31,14 @@ namespace HappyHouse.Controllers
             return View(list);
         }
 
+        [Authorize(Roles ="admin")]
         public Task<IActionResult> CreateHouse()
         {
             return Task.FromResult<IActionResult>(View());
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
 		public async Task<IActionResult> CreateHouse(HouseCreateDto model)
 		{
@@ -51,6 +55,7 @@ namespace HappyHouse.Controllers
 		}
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateHouse(int houseid)
         {
             if (ModelState.IsValid)
@@ -68,6 +73,7 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(HouseUpdateDto model)
         {
             if (ModelState.IsValid)
@@ -85,6 +91,7 @@ namespace HappyHouse.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteHouse(int houseid)
         {
             if (houseid != null)
@@ -102,6 +109,7 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Deletehouse(int id)
         {
             if (ModelState.IsValid)

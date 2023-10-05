@@ -4,6 +4,7 @@ using HouseRent_Api.Data;
 using HouseRent_Api.IRepository;
 using HouseRent_Api.Models;
 using HouseRent_Api.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,7 @@ namespace HouseRent_Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<APIresponse>> GetHouses()
         {
             try
@@ -55,6 +57,8 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(HouseDto))]
+        [Authorize(Roles = "admin")]
+
         public async Task<ActionResult<APIresponse>> GetHouse(int id)
         {
             try
@@ -85,6 +89,8 @@ namespace HouseRent_Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
+
         public async Task<ActionResult<APIresponse>> CreateHouse([FromBody] HouseCreateDto CreateDto)
         {
             try
@@ -142,6 +148,8 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id:int}", Name = "DeleteHouse")]
+        [Authorize(Roles = "Custom")]
+
         public async Task<ActionResult<APIresponse>> DeleteHouse(int id)
         {
             try
@@ -173,6 +181,8 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{id:int}", Name = "UpdateHouse")]
+        [Authorize(Roles = "admin")]
+
         public async Task<ActionResult<APIresponse>> UpdateHouse(int id, [FromBody] HouseUpdateDto UpdateDto)
         {
             try

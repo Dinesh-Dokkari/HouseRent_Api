@@ -16,6 +16,9 @@ namespace HouseRent_Api
             CreateMap<HouseNumber, HouseNumberCreateDto>().ReverseMap();
             CreateMap<HouseNumber, HouseNumberDto>().ReverseMap();
 
+            CreateMap<LocalUser,RegisterationRequestDto>().ReverseMap();
+            CreateMap<LoginRequestDto, LocalUser>().ReverseMap();
+
 
 
             
