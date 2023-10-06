@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HappyHouse.Models;
 using HappyHouse.Services.IServices;
+using HappyHouse_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,7 +23,7 @@ namespace HappyHouse.Controllers
             List<HouseDto> list = new();
 
 
-            var responce = await _houseService.GetAllAsync<APIresponse>();
+            var responce = await _houseService.GetAllAsync<APIresponse>(HttpContext.Session.GetString(Static_Details.SessionToken));
 
             if (responce != null && responce.IsSuccess)
             {
@@ -44,7 +45,7 @@ namespace HappyHouse.Controllers
 		{
             if (ModelState.IsValid)
             {
-                var responce = await _houseService.CreateAsync<APIresponse>(model);
+                var responce = await _houseService.CreateAsync<APIresponse>(model, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -60,7 +61,7 @@ namespace HappyHouse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseService.GetAsync<APIresponse>(houseid);
+                var responce = await _houseService.GetAsync<APIresponse>(houseid, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -78,7 +79,7 @@ namespace HappyHouse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseService.UpdateAsync<APIresponse>(model);
+                var responce = await _houseService.UpdateAsync<APIresponse>(model, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -96,7 +97,7 @@ namespace HappyHouse.Controllers
         {
             if (houseid != null)
             {
-                var responce = await _houseService.GetAsync<APIresponse>(houseid);
+                var responce = await _houseService.GetAsync<APIresponse>(houseid, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -114,7 +115,7 @@ namespace HappyHouse.Controllers
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseService.DeleteAsync<APIresponse>(id);
+                var responce = await _houseService.DeleteAsync<APIresponse>(id, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {

@@ -30,7 +30,6 @@ namespace HouseRent_Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
         public async Task<ActionResult<APIresponse>> GetHouses()
         {
             try
@@ -57,7 +56,6 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(HouseDto))]
-        [Authorize(Roles = "admin")]
 
         public async Task<ActionResult<APIresponse>> GetHouse(int id)
         {
@@ -148,7 +146,7 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id:int}", Name = "DeleteHouse")]
-        [Authorize(Roles = "Custom")]
+        [Authorize(Roles = "admin")]
 
         public async Task<ActionResult<APIresponse>> DeleteHouse(int id)
         {

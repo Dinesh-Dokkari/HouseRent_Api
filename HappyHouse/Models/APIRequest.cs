@@ -7,5 +7,7 @@ namespace HappyHouse.Models
         public Api_Type ApiType { get; set; } = Api_Type.GET;
         public string Url { get; set; } 
         public object Data { get; set; }
+        public string Token { get; set; }
+
     }
 }

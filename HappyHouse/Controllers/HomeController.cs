@@ -1,5 +1,8 @@
 ﻿using HappyHouse.Models;
+using HappyHouse.Services.IServices;
+using HappyHouse_Utility;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace HappyHouse.Controllers
@@ -8,14 +11,26 @@ namespace HappyHouse.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHouseService _houseService;   
+
+        public HomeController(ILogger<HomeController> logger, IHouseService houseService)
         {
             _logger = logger;
+            _houseService = houseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<HouseDto> list = new();
+
+
+            var responce = await _houseService.GetAllAsync<APIresponse>(HttpContext.Session.GetString(Static_Details.SessionToken));
+
+            if (responce != null && responce.IsSuccess)
+            {
+                list = JsonConvert.DeserializeObject<List<HouseDto>>(Convert.ToString(responce.Result));
+            }
+            return View(list);
         }
 
         public IActionResult Privacy()

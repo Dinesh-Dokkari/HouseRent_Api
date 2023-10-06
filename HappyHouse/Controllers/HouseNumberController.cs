@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HappyHouse.Models;
 using HappyHouse.Services.IServices;
+using HappyHouse_Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -20,7 +22,7 @@ namespace HappyHouse.Controllers
         {
             List<HouseNumberDto> list = new();
 
-            var responce = await _houseNumberService.GetAllAsync<APIresponse>();
+            var responce = await _houseNumberService.GetAllAsync<APIresponse>(HttpContext.Session.GetString(Static_Details.SessionToken));
 
             if (responce != null && responce.IsSuccess)
             {
@@ -29,6 +31,7 @@ namespace HappyHouse.Controllers
             return View(list);
         }
 
+        [Authorize(Roles="admin")]
         public Task<IActionResult> CreateHouseNumber()
         {
             return Task.FromResult<IActionResult>(View());
@@ -36,11 +39,13 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> CreateHouseNumber(HouseNumberCreateDto model)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.CreateAsync<APIresponse>(model);
+                var responce = await _houseNumberService.CreateAsync<APIresponse>(model, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -51,11 +56,13 @@ namespace HappyHouse.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> UpdateHouseNumber(int HouseNo)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.GetAsync<APIresponse>(HouseNo);
+                var responce = await _houseNumberService.GetAsync<APIresponse>(HouseNo, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -68,11 +75,13 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> UpdateHouseNumber(HouseNumberUpdateDto model)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.UpdateAsync<APIresponse>(model);
+                var responce = await _houseNumberService.UpdateAsync<APIresponse>(model, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -85,11 +94,13 @@ namespace HappyHouse.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> DeleteHouseNumber(int houseid)
         {
             if (houseid != null)
             {
-                var responce = await _houseNumberService.GetAsync<APIresponse>(houseid);
+                var responce = await _houseNumberService.GetAsync<APIresponse>(houseid, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {
@@ -102,11 +113,13 @@ namespace HappyHouse.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> DeletehouseNumber(int HouseNo)
         {
             if (ModelState.IsValid)
             {
-                var responce = await _houseNumberService.DeleteAsync<APIresponse>(HouseNo);
+                var responce = await _houseNumberService.DeleteAsync<APIresponse>(HouseNo, HttpContext.Session.GetString(Static_Details.SessionToken));
 
                 if (responce != null && responce.IsSuccess)
                 {

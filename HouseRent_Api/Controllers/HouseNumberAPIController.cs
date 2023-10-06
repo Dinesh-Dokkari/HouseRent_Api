@@ -2,6 +2,7 @@
 using HouseRent_Api.IRepository;
 using HouseRent_Api.Models;
 using HouseRent_Api.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -85,6 +86,7 @@ namespace HouseRent_Api.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles="admin")]
         public async Task<ActionResult<APIresponse>> CreateHouseNumber([FromBody] HouseNumberCreateDto CreateDto)
         {
             try
@@ -130,6 +132,9 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{HouseNo:int}", Name = "DeleteHouseNumber")]
+        [Authorize(Roles = "admin")]
+
+
         public async Task<ActionResult<APIresponse>> DeleteHouseNumber(int HouseNo)
         {
             try
@@ -161,6 +166,8 @@ namespace HouseRent_Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{HouseNo:int}", Name = "UpdateHouseNumber")]
+        [Authorize(Roles = "admin")]
+
         public async Task<ActionResult<APIresponse>> UpdateHouseNumber(int HouseNo, [FromBody] HouseNumberUpdateDto UpdateDto)
         {
             try

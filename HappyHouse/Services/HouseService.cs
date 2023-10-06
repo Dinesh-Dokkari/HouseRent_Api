@@ -17,55 +17,60 @@ namespace HappyHouse.Services
             HouseUrl = configuration.GetValue<string>("ServiceUrls:HouseRent_Api");
 
         }
-        public Task<T> CreateAsync<T>(HouseCreateDto dto)
+        public Task<T> CreateAsync<T>(HouseCreateDto dto,string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.POST,
                 Data = dto,
-                Url = HouseUrl + "/api/HouseAPI"
+                Url = HouseUrl + "/api/HouseAPI",
+                Token = token
 
-            });
+            }); ;
         }
 
-        public Task<T> DeleteAsync<T>(int id)
+        public Task<T> DeleteAsync<T>(int id, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.DELETE,
-                Url = HouseUrl + "/api/HouseAPI/" + id
+                Url = HouseUrl + "/api/HouseAPI/" + id,
+                Token = token
 
             });
         }
 
-        public Task<T> GetAllAsync<T>()
+        public Task<T> GetAllAsync<T>(string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.GET,
                 Url = HouseUrl + "/api/HouseAPI",
-               
+                Token = token
+
 
             });
         }
 
-        public Task<T> GetAsync<T>(int id)
+        public Task<T> GetAsync<T>(int id, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.GET,
-                Url = HouseUrl + "/api/HouseAPI/"+id
+                Url = HouseUrl + "/api/HouseAPI/"+id,
+                Token = token
 
             });
         }
 
-        public Task<T> UpdateAsync<T>(HouseUpdateDto dto)
+        public Task<T> UpdateAsync<T>(HouseUpdateDto dto, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = Static_Details.Api_Type.PUT,
                 Data = dto,
-                Url = HouseUrl + "/api/HouseAPI/"+dto.Id
+                Url = HouseUrl + "/api/HouseAPI/"+dto.Id,
+                Token = token
 
 
             });

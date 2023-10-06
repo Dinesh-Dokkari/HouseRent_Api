@@ -11,5 +11,6 @@ namespace HappyHouse.Models
         public List<string>  ErrorMessages { get; set; }
 
         public object Result { get; set; }
+
     }
 }

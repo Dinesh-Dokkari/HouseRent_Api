@@ -52,12 +52,12 @@ namespace HappyHouse.Services
 
                 HttpResponseMessage apiResponse = null;
 
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.);
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
 
-                //if (!string.IsNullOrEmpty(apiRequest.Token))
-                //{
-                //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
-                //}
+                if (!string.IsNullOrEmpty(apiRequest.Token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+                }
 
                 apiResponse = await client.SendAsync(message);
                 
